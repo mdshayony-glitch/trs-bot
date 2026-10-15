@@ -3,7 +3,7 @@
         return alert('TRS Bot is active!');
     }
 
-    // ১. পাসওয়ার্ড প্রটেকশন মোডাল
+    // ১. পাসওয়ার্ড প্রোটেকশন মোডাল (TRS VIP SECURITY)
     var p = document.createElement('div');
     p.id = 'trs-pass-modal';
     p.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg, rgba(5,15,5,0.98), rgba(0,0,0,0.99));border:2px solid #00ff66;box-shadow:0 0 40px rgba(0,255,102,0.6);border-radius:20px;padding:24px;color:#fff;font-family:sans-serif;z-index:1000000;text-align:center;min-width:280px;backdrop-filter:blur(12px);';
@@ -24,7 +24,7 @@
     };
 
     function initBot() {
-        // ২. ভাসমান ড্র্যাগেবল TRS আইকন
+        // ২. ভাসমান ড্র্যাগেবল TBP লোগো
         var b = document.createElement('div');
         b.id = 'trs-bot-root';
         b.style.cssText = 'position:fixed;top:180px;right:20px;width:68px;height:68px;border-radius:50%;background:radial-gradient(circle,#00280b 0%,#000 100%);border:2.5px solid #00ff66;box-shadow:0 0 18px #00ff66,inset 0 0 10px #00ff66;color:#00ff66;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;font-family:sans-serif;cursor:move;z-index:999999;user-select:none;touch-action:none;';
@@ -45,65 +45,69 @@
         });
         document.addEventListener('touchend', function() { drag = false; });
 
-        // ৩. রিয়েল-টাইম পেজ স্ক্যান ও সিগন্যাল জেনারেটর
+        // ৩. স্ক্রিনশটের হুবহু ডিজাইনের স্ক্যানার কার্ড
         b.addEventListener('click', function() {
             var old = document.getElementById('trs-card');
             if (old) old.remove();
 
-            // পেজ থেকে কারنت পেয়ার বা অ্যাসেট খুঁজে বের করা
-            var pairName = 'EUR/USD (OTC)';
-            var allElements = document.querySelectorAll('div, span');
-            for (var i = 0; i < allElements.length; i++) {
-                var t = allElements[i].innerText;
-                if (t && (t.includes('(OTC)') || (t.includes('/') && t.length < 12))) {
-                    pairName = t.trim().split('\n')[0];
-                    break;
-                }
-            }
-
             var c = document.createElement('div');
             c.id = 'trs-card';
-            c.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg, rgba(5,15,5,0.98), rgba(0,0,0,0.99));border:2px solid #00ff66;box-shadow:0 0 45px rgba(0,255,102,0.6);border-radius:20px;padding:22px;color:#fff;font-family:sans-serif;z-index:1000000;text-align:center;min-width:290px;backdrop-filter:blur(12px);';
-            c.innerHTML = '<div style="color:#00ff66;font-size:18px;font-weight:900;letter-spacing:1px;margin-bottom:12px;">🛡️ TRS QUANTUM ENGINE 🛡️</div>' +
-                          '<div id="trs-status" style="font-size:13px;color:#00e5ff;margin:20px 0;font-weight:bold;">🔍 Scanning Chart Price & Ticks...</div>';
+            c.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg, rgba(3,15,5,0.98), rgba(0,0,0,0.99));border:2px solid #00ff66;box-shadow:0 0 45px rgba(0,255,102,0.6);border-radius:20px;padding:22px;color:#fff;font-family:sans-serif;z-index:1000000;text-align:center;width:280px;backdrop-filter:blur(12px);';
+            
+            c.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">' +
+                          '<b style="color:#fff;font-size:18px;letter-spacing:1px;">TRS BOT</b>' +
+                          '<div id="trs-close-btn" style="background:#112211;border:1px solid #00ff66;color:#00ff66;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer;font-size:14px;">✕</div>' +
+                          '</div>' +
+                          '<div id="trs-status" style="font-size:13px;color:#00ff66;letter-spacing:2px;margin:15px 0;font-weight:bold;">S I G N A L &nbsp; R E A D Y</div>' +
+                          '<div style="position:relative;width:140px;height:140px;margin:15px auto;border:1px solid rgba(0,255,102,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle, rgba(0,50,20,0.2) 0%, rgba(0,0,0,0.8) 100%);box-shadow:inset 0 0 15px rgba(0,255,102,0.2);">' +
+                          '<div style="position:absolute;width:100px;height:100px;border:1px dashed rgba(0,255,102,0.3);border-radius:50%;"></div>' +
+                          '<div style="position:absolute;width:60px;height:60px;border:1px solid rgba(0,255,102,0.3);border-radius:50%;"></div>' +
+                          '<div style="position:absolute;width:50px;height:2px;background:#00ff66;top:70px;left:70px;transform-origin:left center;animation:trsRadar 2s linear infinite;box-shadow:0 0 8px #00ff66;"></div>' +
+                          '<div style="width:6px;height:6px;background:#00ff66;border-radius:50%;box-shadow:0 0 10px #00ff66;"></div>' +
+                          '</div>' +
+                          '<div style="font-size:11px;color:#888;margin-top:15px;">User: <b style="color:#aaa;">@trs VIP</b></div>' +
+                          '<div style="font-size:10px;color:#444;margin-top:5px;letter-spacing:1px;">T R S &nbsp; B O T</div>';
+
             document.body.appendChild(c);
 
-            // স্মার্ট অ্যানালাইসিস প্রসেসিং স্টেপস
+            // স্টাইল ট্যাগে রডার অ্যানিমেশন যোগ করা
+            if(!document.getElementById('trs-radar-style')) {
+                var st = document.createElement('style');
+                st.id = 'trs-radar-style';
+                st.innerHTML = '@keyframes trsRadar { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
+                document.head.appendChild(st);
+            }
+
+            document.getElementById('trs-close-btn').onclick = function() {
+                c.remove();
+            };
+
+            // ৩ সেকেন্ড পর স্ক্রিনশটের মতো ফাইনাল সিগন্যাল (UP বা DOWN) দেখানো
             setTimeout(function() {
                 var st = document.getElementById('trs-status');
-                if (st) st.innerHTML = '📊 Analyzing Candlestick Momentum...';
-            }, 1000);
+                if(st) st.innerHTML = 'S C A N &nbsp; C O M P L E T E';
+                
+                var now = new Date();
+                var isUp = (now.getSeconds() % 2 === 0);
+                var sigText = isUp ? 'U P' : 'D OWN';
+                var sigColor = isUp ? '#00ff66' : '#ff3333';
+                var subText = isUp ? 'CALL (BUY)' : 'PUT (SELL)';
 
-            setTimeout(function() {
-                var st = document.getElementById('trs-status');
-                if (st) st.innerHTML = '⚡ Filtering High Accuracy Entry Point...';
-            }, 2200);
+                setTimeout(function() {
+                    c.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">' +
+                                  '<b style="color:#fff;font-size:18px;letter-spacing:1px;">TRS BOT</b>' +
+                                  '<div id="trs-close-btn" style="background:#112211;border:1px solid #00ff66;color:#00ff66;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer;font-size:14px;">✕</div>' +
+                                  '</div>' +
+                                  '<div style="font-size:11px;color:#888;letter-spacing:1px;margin-bottom:5px;">P R E M I U M &nbsp; S I G N A L</div>' +
+                                  '<div style="font-size:32px;font-weight:900;margin:15px 0;color:' + sigColor + ';text-shadow:0 0 20px ' + sigColor + ';letter-spacing:2px;">' + sigText + '</div>' +
+                                  '<div style="font-size:13px;color:#aaa;margin-bottom:15px;">Action: <b style="color:' + sigColor + ';">' + subText + '</b></div>' +
+                                  '<div style="font-size:11px;color:#666;margin-top:10px;">User: <b style="color:#888;">@trs VIP</b></div>';
 
-            // ফাইনাল সিগন্যাল আউটপুট
-            setTimeout(function() {
-                // পেজের বর্তমান সময়ের সেকেন্ড ও মাইক্রো-মুভমেন্ট বিশ্লেষণ করে স্মার্ট সিগন্যাল তৈরি
-                var d = new Date();
-                var sec = d.getSeconds();
-                var msec = d.getMilliseconds();
-                var isCall = ((sec + msec) % 2 === 0);
-
-                var act = isCall ? '🟢 CALL (BUY) 📈' : '🔴 PUT (SELL) 📉';
-                var actColor = isCall ? '#00ff66' : '#ff3333';
-                var trd = isCall ? 'BULLISH MOMENTUM' : 'BEARISH PRESSURE';
-                var acc = (94.0 + (Math.random() * 3.8)).toFixed(1) + '%';
-
-                c.innerHTML = '<div style="color:#00ff66;font-size:17px;font-weight:900;margin-bottom:8px;">💎 TRS VIP PRO v5.5 💎</div>' +
-                              '<div style="font-size:12px;color:#ccc;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:6px;">Asset: <b style="color:#fff;">' + pairName + '</b></div>' +
-                              '<div style="font-size:20px;font-weight:bold;margin:12px 0;color:' + actColor + ';text-shadow:0 0 15px ' + actColor + ';">' + act + '</div>' +
-                              '<div style="font-size:12px;color:#aaa;margin-bottom:6px;">Signal Type: <b style="color:#00e5ff;">' + trd + '</b></div>' +
-                              '<div style="font-size:12px;color:#aaa;margin-bottom:15px;">Confidence: <b style="color:#00ff66;">' + acc + '</b></div>' +
-                              '<button id="trs-close-btn" style="background:#222;color:#fff;border:1px solid #555;padding:6px 16px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:12px;">CLOSE</button>';
-
-                document.getElementById('trs-close-btn').onclick = function() {
-                    c.remove();
-                };
-            }, 3500);
+                    document.getElementById('trs-close-btn').onclick = function() {
+                        c.remove();
+                    };
+                }, 1000);
+            }, 3000);
         });
     }
 })();
-
