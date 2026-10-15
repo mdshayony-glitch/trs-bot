@@ -9,7 +9,7 @@
     p.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg, rgba(3,15,5,0.98), rgba(0,0,0,0.99));border:2px solid #00ff66;box-shadow:0 0 40px rgba(0,255,102,0.6);border-radius:20px;padding:24px;color:#fff;font-family:sans-serif;z-index:1000000;text-align:center;width:290px;backdrop-filter:blur(12px);';
     p.innerHTML = '<div style="color:#00ff66;font-size:18px;font-weight:900;margin-bottom:12px;">🔐 TRS VIP SECURITY 🔐</div>' +
                   '<div style="font-size:13px;color:#ccc;margin-bottom:15px;">Enter Access Password:</div>' +
-                  '<input type="password" id="trs-pass-input" placeholder="Password (TRS1)" style="width:80%;padding:8px;border-radius:6px;border:1px solid #00ff66;background:#000;color:#00ff66;text-align:center;margin-bottom:15px;font-size:14px;outline:none;"><br>' +
+                  '<input type="password" id="trs-pass-input" placeholder="Password " style="width:80%;padding:8px;border-radius:6px;border:1px solid #00ff66;background:#000;color:#00ff66;text-align:center;margin-bottom:15px;font-size:14px;outline:none;"><br>' +
                   '<button id="trs-pass-btn" style="background:linear-gradient(90deg, #00ff66, #00cc52);color:#000;border:none;padding:8px 20px;border-radius:8px;font-weight:900;cursor:pointer;font-size:13px;box-shadow:0 0 10px rgba(0,255,102,0.4);">LOGIN BOT</button>';
     document.body.appendChild(p);
 
