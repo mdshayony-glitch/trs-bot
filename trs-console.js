@@ -90,7 +90,7 @@
                           '<div style="position:absolute;width:40px;height:2px;background:#00ff66;top:60px;left:60px;transform-origin:left center;animation:trsRadar 1.5s linear infinite;box-shadow:0 0 8px #00ff66;"></div>' +
                           '<div style="width:6px;height:6px;background:#00ff66;border-radius:50%;box-shadow:0 0 10px #00ff66;"></div>' +
                           '</div>' +
-                          '<div style="font-size:10px;color:#888;margin-top:6px;">User: <b style="color:#aaa;">@trs VIP</b></div>';
+                          '<div style="font-size:10px;color:#888;margin-top:6px;">User: <b style="color:#aaa;">@TRS1</b></div>';
 
             document.body.appendChild(c);
 
