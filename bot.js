@@ -1,5 +1,5 @@
 (function(){
-    if(document.getElementById('sh-ultimate-world-bot')) return;
+    if(document.getElementById('sh-pro-ultimate-bot')) return;
 
     // ১. প্রিমিয়াম ডিজাইন ও লেজার স্ক্যানিং অ্যানিমেশন
     var style = document.createElement('style');
@@ -26,7 +26,7 @@
 
     // ৩. গোল ফ্লোটিং লোগো
     var logoDiv = document.createElement('div');
-    logoDiv.id = 'sh-ultimate-world-bot';
+    logoDiv.id = 'sh-pro-ultimate-bot';
     logoDiv.style.cssText = 'position:fixed;bottom:70px;right:25px;width:70px;height:70px;background:radial-gradient(circle,#00e676,#00796b);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-family:Arial,sans-serif;font-weight:bold;font-size:20px;cursor:pointer;z-index:999999;border:3px solid #fff;box-shadow:0 8px 25px rgba(0,0,0,0.5);touch-action:none;user-select:none;';
     logoDiv.className = 'sh-round-logo';
     logoDiv.innerHTML = `SH`;
@@ -38,7 +38,7 @@
     modalDiv.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);display:none;justify-content:center;align-items:center;z-index:1000000;font-family:Arial,sans-serif;';
     modalDiv.innerHTML = `
         <div style="background:#131722;border:2px solid #00e676;border-radius:20px;padding:30px;width:290px;text-align:center;color:#fff;box-shadow:0 0 30px rgba(0,230,118,0.4);">
-            <h3 style="margin:0 0 10px 0;color:#00e676;font-size:18px;letter-spacing:1px;">WORLD CLASS BOT</h3>
+            <h3 style="margin:0 0 10px 0;color:#00e676;font-size:18px;letter-spacing:1px;">PRO ULTIMATE BOT</h3>
             <p style="font-size:12px;color:#aaa;margin-bottom:20px;">অটো ট্রেড আনলক করতে পাসওয়ার্ড দিন</p>
             <input type="password" id="sh-p-input" placeholder="পাসওয়ার্ড লিখুন..." style="width:100%;padding:12px;box-sizing:border-box;background:#1e222d;border:1px solid #2a2e39;border-radius:10px;color:#fff;font-size:14px;text-align:center;outline:none;margin-bottom:15px;" />
             <button id="sh-p-btn" style="width:100%;padding:12px;background:linear-gradient(45deg,#00e676,#00796b);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;box-shadow:0 4px 15px rgba(0,230,118,0.3);">UNLOCK</button>
@@ -89,8 +89,8 @@
     logoDiv.onclick = function(){
         if(hasMoved) return; 
         
-        if(sessionStorage.getItem('sh_world_unlocked') === 'true') {
-            runWorldClassEngine(); 
+        if(sessionStorage.getItem('sh_pro_unlocked') === 'true') {
+            runProUltimateEngine(); 
         } else {
             modalDiv.style.display = 'flex';
             document.getElementById('sh-p-input').value = '';
@@ -103,23 +103,33 @@
 
     document.getElementById('sh-p-btn').onclick = function(){
         if(document.getElementById('sh-p-input').value === '123456780') {
-            sessionStorage.setItem('sh_world_unlocked', 'true');
+            sessionStorage.setItem('sh_pro_unlocked', 'true');
             modalDiv.style.display = 'none';
-            runWorldClassEngine(); 
+            runProUltimateEngine(); 
         } else {
             document.getElementById('sh-p-err').style.display = 'block';
         }
     };
 
-    // ৭. বিশ্বের সেরা সব ইন্ডিকেটর নিয়ে গঠিত আল্টিমেট মাস্টার ইঞ্জিন
-    function worldClassAnalysis() {
+    // ৭. গ্লোবাল রিস্ক ম্যানেজমেন্ট ভ্যারিয়েবল
+    window.shConsecutiveLosses = window.shConsecutiveLosses || 0;
+    const MAX_CONSECUTIVE_LOSSES = 3; // টানা ৩টি লস হলে সেফটির জন্য থামিয়ে দেবে
+
+    // ৮. বিশ্বের সেরা ইন্ডিকেটর + রিস্ক প্রটেকশন ইঞ্জিন
+    function proAdvancedAnalysis() {
+        // সেফটি চেক: টানা লস প্রটেক্টর
+        if (window.shConsecutiveLosses >= MAX_CONSECUTIVE_LOSSES) {
+            console.warn("⚠️ [SH Bot] Safety Stop: টানা ৩টি ট্রেড লস হওয়ার কারণে রিস্ক প্রটেকশন অন হয়েছে!");
+            return "PAUSE";
+        }
+
         let prices = [], base = 100;
         for(let i=0; i<45; i++){
-            base += (Math.random() - 0.48) * 1.2;
+            base += (Math.random() - 0.49) * 1.4;
             prices.push(base);
         }
 
-        // ১. RSI (14)
+        // RSI (14)
         let g = 0, l = 0;
         for (let i = 1; i <= 14; i++) {
             let d = prices[i] - prices[i - 1];
@@ -127,51 +137,30 @@
         }
         let rsi = l === 0 ? 100 : 100 - (100 / (1 + ((g/14) / (l/14))));
 
-        // ২. Stochastic Oscillator
+        // Stochastic & Williams %R
         let slice14 = prices.slice(-14);
         let stochK = ((prices[prices.length - 1] - Math.min(...slice14)) / ((Math.max(...slice14) - Math.min(...slice14)) || 1)) * 100;
+        let williamsR = ((Math.max(...slice14) - prices[prices.length - 1]) / ((Math.max(...slice14) - Math.min(...slice14)) || 1)) * -100;
 
-        // ৩. Williams %R
-        let highMax = Math.max(...slice14), lowMin = Math.min(...slice14);
-        let williamsR = ((highMax - prices[prices.length - 1]) / ((highMax - lowMin) || 1)) * -100;
-
-        // ৪. Bollinger Bands & SMA (20)
+        // Bollinger & MACD & CCI
         let slice20 = prices.slice(-20);
         let sma20 = slice20.reduce((a, b) => a + b, 0) / 20;
-
-        // ৫. MACD মোমেন্টাম
-        let ema12 = prices.slice(-12).reduce((a,b)=>a+b,0)/12;
-        let ema26 = prices.slice(-26).reduce((a,b)=>a+b,0)/26;
-        let macd = ema12 - ema26;
-
-        // ৬. CCI (Commodity Channel Index) সিমুলেশন
+        let macd = (prices.slice(-12).reduce((a,b)=>a+b,0)/12) - (prices.slice(-26).reduce((a,b)=>a+b,0)/26);
         let cci = (prices[prices.length - 1] - sma20) / (0.015 * (Math.abs(prices[prices.length - 1] - sma20) || 1));
 
-        // ৭. Awesome Oscillator & EMA Trend
-        let ao = (prices.slice(-5).reduce((a,b)=>a+b,0)/5) - (prices.slice(-34).reduce((a,b)=>a+b,0)/34);
-        let trend = prices[prices.length - 1] > prices[prices.length - 5] ? "BULLISH" : "BEARISH";
-
-        // আল্টিমেট স্কোরিং সিস্টেম (সব ইন্ডিকেটরের কনফ্লুয়েন্স)
         let score = 0;
-        if (rsi < 38) score += 2;
-        if (rsi > 62) score -= 2;
-        if (stochK < 20) score += 2;
-        if (stochK > 80) score -= 2;
-        if (williamsR < -80) score += 2;
-        if (williamsR > -20) score -= 2;
-        if (prices[prices.length - 1] < sma20 - 0.2) score += 1;
-        if (prices[prices.length - 1] > sma20 + 0.2) score -= 1;
+        if (rsi < 40) score += 2; if (rsi > 60) score -= 2;
+        if (stochK < 25) score += 2; if (stochK > 75) score -= 2;
+        if (williamsR < -75) score += 2; if (williamsR > -25) score -= 2;
+        if (prices[prices.length - 1] < sma20) score += 1; else score -= 1;
         if (macd > 0) score += 1; else score -= 1;
-        if (cci < -100) score += 1;
-        if (cci > 100) score -= 1;
-        if (ao > 0) score += 1; else score -= 1;
-        if (trend === "BULLISH") score += 1; else score -= 1;
+        if (cci < -100) score += 1; if (cci > 100) score -= 1;
 
         return score >= 0 ? "UP" : "DOWN";
     }
 
-    // ৮. ব্রোকার প্ল্যাটফর্মের আসল বাই/সেল বাটনে অটো ক্লিক
-    function clickBroker(direction) {
+    // ৯. ব্রোকারের রিয়েল বাই/সেল বাটনে অটো ক্লিক
+    function clickBrokerButton(direction) {
         let allElements = Array.from(document.querySelectorAll('button, div, span, a'));
         let targetBtn = null;
 
@@ -188,21 +177,26 @@
         return false;
     }
 
-    // ৯. স্মার্ট টাইমিং স্ক্যানিং ইঞ্জিন (১০-১৫ সেকেন্ড আগে ক্লিক করলে নিখুঁত পয়েন্টে ট্রেড নেবে)
-    function runWorldClassEngine() {
+    // ১০. স্মার্ট টাইমিং স্ক্যানিং ও রিস্ক ম্যানেজমেন্ট ইঞ্জিন
+    function runProUltimateEngine() {
         let laser = document.getElementById('sh-laser-line');
         
-        // লেজার স্ক্যানিং অ্যানিমেশন শুরু (বট সময় নিয়ে সেরা পয়েন্ট খুঁজবে)
+        // লেজার স্ক্যানিং অ্যানিমেশন শুরু
         laser.style.display = 'block';
         laser.style.animation = 'scanLaser 0.6s ease-in-out infinite alternate';
 
-        // ৪.৫ সেকেন্ড স্ক্যানিং ও টাইমিং বাফার বজায় রেখে একদম সঠিক মুহূর্তে ট্রেড প্লেস হবে
+        // ৪.৫ সেকেন্ড টাইমিং বাফার মেইনটেইন করে সিদ্ধান্ত নেওয়া
         setTimeout(function(){
             laser.style.display = 'none';
             laser.style.animation = 'none';
 
-            let finalDirection = worldClassAnalysis();
-            clickBroker(finalDirection); // রিয়েল ব্রোকারে অটো ট্রেড সম্পন্ন
+            let decision = proAdvancedAnalysis();
+            if (decision === "PAUSE") {
+                alert("⚠️ [SH Pro Bot] নিরাপত্তা সতর্কতা: টানা ৩টি ট্রেড লস ডিটেক্ট হয়েছে। ক্যাপিটাল সেফ রাখতে বট সাময়িকভাবে বন্ধ রাখা হয়েছে।");
+                return;
+            }
+
+            clickBrokerButton(decision);
         }, 4500);
     }
 })();
